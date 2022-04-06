@@ -3,14 +3,14 @@ package internal
 import (
 	"fmt"
 	"net/http"
+
+	"github.com/gorilla/mux"
 )
 
 func Handler(w http.ResponseWriter, r *http.Request) {
+
+	vars := mux.Vars(r)
+
 	fmt.Fprintln(w, "Hello world")
-	fmt.Fprintln(w, "Method:", r.Method)
-	fmt.Fprintln(w, "URL:", r.URL)
-	fmt.Fprintln(w, "URL Path:", r.URL.Path)
-	fmt.Fprintln(w, "GET Parameters:", r.URL.Query().Get("token"))
-	fmt.Fprintln(w, "Header:", r.Header)
-	fmt.Fprintln(w, "Body:", r.Body)
+	fmt.Fprintln(w, "Vars dict:", vars)
 }
