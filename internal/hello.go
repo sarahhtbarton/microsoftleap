@@ -6,10 +6,11 @@ import (
 )
 
 func Handler(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprint(w, "Hello world")
-	fmt.Println("Method:", r.Method)
-	fmt.Println("URL:", r.URL)
-	fmt.Println("URL Path:", r.URL.Path)
-	fmt.Println("Header:", r.Header)
-	fmt.Println("Body:", r.Body)
+	fmt.Fprintln(w, "Hello world")
+	fmt.Fprintln(w, "Method:", r.Method)
+	fmt.Fprintln(w, "URL:", r.URL)
+	fmt.Fprintln(w, "URL Path:", r.URL.Path)
+	fmt.Fprintln(w, "GET Parameters:", r.URL.Query().Get("token"))
+	fmt.Fprintln(w, "Header:", r.Header)
+	fmt.Fprintln(w, "Body:", r.Body)
 }
