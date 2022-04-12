@@ -1,7 +1,7 @@
 package internal
 
 import (
-	// "encoding/json"
+	"encoding/json"
 	"fmt"
 	"net/http"
 
@@ -10,7 +10,7 @@ import (
 
 func Handler(w http.ResponseWriter, r *http.Request) {
 
-	vars := mux.Vars(r)
+	vars := mux.Vars(r) //I think this is used to get dynamic segments from url. Like /page/{page}, you'd use vars["page"] to get the actual page passed
 
 	fmt.Fprintln(w, "Hello world")
 	fmt.Fprintln(w, "Vars dict:", vars)
@@ -23,22 +23,22 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 	fibonacciMatrix(1,4)
 }
 
-//TODO: how do you make the return output json?
-func fibonacciMatrix (m int, n int) {
+//How do you make the return output json? You dont do that here. 
+//"Single responsibility principle" -- not the job of this function to do the encoding.
+func fibonacciMatrix (m int, n int) [][]int64 {
 
 	//the max value for a int64 is  9,223,372,036,854,770,000 
 	//the largest fibonacci number int64 can handle is the 92nd number
 	//the 92nd fibonacci number is  7,540,113,804,746,340,000 
-
+	// TODO: validation / error handling. Return both the slice of slices, AND an error. If err != nil ...
+		//if n*m > 92... return error
 
 
 	//Make empty matrix
-	//TODO is there a more elegant way to do this? A la `fib_matrix = [[None] * n for i in range(m)]`
-	fib_matrix := make([][]int64, 0) //is int64 right here? seems like the type should be a slice....
-
-	for i := 0; i < m; i++ { //is this the way to do `for i in range()`
+	fibMatrix := make([][]int64, 0) //TODO: instead of 0 -- can specify number of rows
+	for i := 0; i < m; i++ { //TODO: `for i, v := fibMatrix` or `for _, v := fibMatrix`  (this is like enumeration)
 		new := make([]int64, n)
-		fib_matrix = append(fib_matrix, new) //for append, you need to include fib_matrix again?
+		fibMatrix = append(fibMatrix, new)
 	}
 
 	k := 0
@@ -50,10 +50,10 @@ func fibonacciMatrix (m int, n int) {
 		
 		//Handles the first row of remaining rows
 		for i := l; i < n; i++ {
-			n0 := n1 + n2 //is this DRY??
+			n0 := n1 + n2 //TODO: there is a way to combine these 3 lines with "closures" -- a function that returns a function, where the internal function returned has its own state. Could call newFibGenerator, that returns generateFib, which when called changes its own state of n1, n2 etc. 
 			n2 = n1
 			n1 = n0
-			fib_matrix[k][i] = n0
+			fibMatrix[k][i] = n0
 		}
 		k += 1
 
@@ -62,7 +62,7 @@ func fibonacciMatrix (m int, n int) {
 			n0 := n1 + n2
 			n2 = n1
 			n1 = n0
-			fib_matrix[i][n-1] = n0
+			fibMatrix[i][n-1] = n0
 		}
 		n -= 1
 
@@ -72,7 +72,7 @@ func fibonacciMatrix (m int, n int) {
 				n0 := n1 + n2
 				n2 = n1
 				n1 = n0
-				fib_matrix[m-1][i] = n0
+				fibMatrix[m-1][i] = n0
 			}
 		m -= 1
 		}
@@ -83,11 +83,11 @@ func fibonacciMatrix (m int, n int) {
 				n0 := n1 + n2
 				n2 = n1
 				n1 = n0
-				fib_matrix[i][l] = n0
+				fibMatrix[i][l] = n0
 			}
 		l += 1
 		}
    }
-	//TODO: return json  
-   fmt.Println(fib_matrix)
+	fmt.Println(fibMatrix)
+	return fibMatrix
 }
