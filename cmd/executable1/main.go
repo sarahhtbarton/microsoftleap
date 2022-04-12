@@ -12,6 +12,9 @@ func main() {
 
 	r := mux.NewRouter()
 
-	r.HandleFunc("/", internal.Handler)
+	r.HandleFunc("/rows/{rows}/columns/{columns}", internal.Handler)
 	log.Fatal(http.ListenAndServe(":8080", r))
+
+	//Test:
+	//http://localhost:8080/rows/3/columns/4
 }
