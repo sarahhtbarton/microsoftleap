@@ -1,6 +1,46 @@
 package helper
 
-import "fmt"
+import (
+	"encoding/json"
+	"errors"
+	"fmt"
+	"strconv"
+)
+
+func ConvertMaptoInts (vars map[string]string) (int, int, error) {
+	
+	numRows := vars["rows"]
+	numColumns := vars["columns"]
+
+	rows, err := strconv.Atoi(numRows)
+	columns, err := strconv.Atoi(numColumns)
+
+	return rows, columns, err
+
+}
+
+func ClientErrorHandling (rows int, columns int) error {
+
+	if rows < 1 || rows > 92 || columns < 1 || columns > 92 {
+		return errors.New("You must enter a number greater than 0 and less than 92")
+	}
+	
+	if rows*columns > 92 {
+		return errors.New("Can only support a matrix with maximum of 92 numbers")
+	}
+
+	return nil
+}
+
+func ConvertMatrixToJason (matrix [][]int64) ([]byte, error) {
+
+	res, err := json.Marshal(matrix)
+	if err != nil {
+		return nil, errors.New("Error converting Matrix to JSON string")
+	}
+
+	return res, nil
+}
 
 func FibonacciMatrix (m int, n int) [][]int64 {
 	//m = number of lists (height/rows)
