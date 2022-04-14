@@ -1,7 +1,7 @@
 package helper
 
 import (
-	"encoding/json"
+	// "encoding/json"
 	"errors"
 	"fmt"
 	"strconv"
@@ -13,16 +13,25 @@ func ConvertMaptoInts (vars map[string]string) (int, int, error) {
 	numColumns := vars["columns"]
 
 	rows, err := strconv.Atoi(numRows)
+	if err != nil {
+		return 0, 0, errors.New("Please enter an *integer* for your desired number of rows")
+	}
+	
 	columns, err := strconv.Atoi(numColumns)
+	if err != nil {
+		return 0, 0, errors.New("Please enter an *integer* for your desired number of columns")
+	}
 
-	return rows, columns, err
-
+	return rows, columns, nil
 }
 
 func ClientErrorHandling (rows int, columns int) error {
 
-	if rows < 1 || rows > 92 || columns < 1 || columns > 92 {
-		return errors.New("You must enter a number greater than 0 and less than 92")
+	//the max value for a int64 is 9,223,372,036,854,770,000 
+	//the largest fibonacci number int64 can handle is the 92nd number
+	//this function puts in constraints so that the server never encounters a Fibonacci number that's too large to handle
+	if rows < 1 || rows >= 92 || columns < 1 || columns >= 92 {
+		return errors.New("You must enter a number greater than 0 and less than 93")
 	}
 	
 	if rows*columns > 92 {
@@ -32,15 +41,15 @@ func ClientErrorHandling (rows int, columns int) error {
 	return nil
 }
 
-func ConvertMatrixToJason (matrix [][]int64) ([]byte, error) {
+// func ConvertMatrixToJason (matrix [][]int64) ([]byte, error) {
 
-	res, err := json.Marshal(matrix)
-	if err != nil {
-		return nil, errors.New("Error converting Matrix to JSON string")
-	}
+// 	res, err := json.Marshal(matrix)
+// 	if err != nil {
+// 		return nil, errors.New("Error converting Matrix to JSON string")
+// 	}
 
-	return res, nil
-}
+// 	return res, nil
+// }
 
 func FibonacciMatrix (m int, n int) [][]int64 {
 	//m = number of lists (height/rows)

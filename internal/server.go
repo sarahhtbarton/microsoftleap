@@ -1,6 +1,7 @@
 package internal
 
 import (
+	"encoding/json"
 	"net/http"
 
 	"github.com/gorilla/mux"
@@ -25,15 +26,14 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 
 	matrix := helper.FibonacciMatrix(rows, columns)
 
-	res, err3 := helper.ConvertMatrixToJason(matrix)
-	if err3 != nil {
-		http.Error(w, err3.Error(), http.StatusInternalServerError)
-		return
-	}
+	// res, err3 := helper.ConvertMatrixToJason(matrix)
+	// if err3 != nil {
+	// 	http.Error(w, err3.Error(), http.StatusInternalServerError)
+	// 	return
+	// }
 
-	//TODO: Learn more about what these different things do
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
-	w.Write(res)
-	// json.NewEncoder(w).Encode(res) //What would this do?
+	// w.Write(res)
+	json.NewEncoder(w).Encode(matrix) //Would this replace lines 29-33 and 37?
 }
