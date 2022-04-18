@@ -1,14 +1,12 @@
 package helper
 
 import (
-	// "encoding/json"
 	"errors"
-	"fmt"
 	"strconv"
 )
 
 func ConvertMaptoInts (vars map[string]string) (int, int, error) {
-	
+
 	numRows := vars["rows"]
 	numColumns := vars["columns"]
 
@@ -40,16 +38,6 @@ func ClientErrorHandling (rows int, columns int) error {
 
 	return nil
 }
-
-// func ConvertMatrixToJason (matrix [][]int64) ([]byte, error) {
-
-// 	res, err := json.Marshal(matrix)
-// 	if err != nil {
-// 		return nil, errors.New("Error converting Matrix to JSON string")
-// 	}
-
-// 	return res, nil
-// }
 
 func FibonacciMatrix (m int, n int) [][]int64 {
 	//m = number of lists (height/rows)
@@ -109,7 +97,5 @@ func FibonacciMatrix (m int, n int) [][]int64 {
 		l += 1
 		}
    }
-	
-   fmt.Println(fibMatrix)
 	return fibMatrix
 }

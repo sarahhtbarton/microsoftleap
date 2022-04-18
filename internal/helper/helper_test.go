@@ -113,8 +113,8 @@ func TestFibonacciMatrix(t *testing.T) {
 	}{
 		{
 			name:     "Valid Matrix",
-			m:        3,
-			n:        4,
+			m:        3, // num of lists
+			n:        4, // num of elements in list
 			expected: [][]int64{{0, 1, 1, 2}, {34, 55, 89, 3}, {21, 13, 8, 5}},
 		},
 	}
@@ -122,13 +122,25 @@ func TestFibonacciMatrix(t *testing.T) {
 	for _, d := range data {
 		t.Run(d.name, func(t *testing.T) {
 			result := FibonacciMatrix(d.m, d.n)
+			// Compares column length (num of slices)
 			if len(result) != len(d.expected) {
 				t.Errorf("Expeced %d, got %d", d.expected, result)
 			}
-			//TODO: compare column length as well
-			//TODO: compare each element
-			if result[d.m-1][d.n-1] != d.expected[d.m-1][d.n-1] {
-				t.Errorf("Expeced %d, got %d", d.expected, result)
+			//Compares row length (num of elements in each slice) 
+			for _, slice := range d.expected {
+				for _, resultSlice := range result {
+					if len(slice) != len(resultSlice) {
+						t.Errorf("Expeced %d, got %d", len(slice), len(resultSlice))
+					}
+				}
+			}
+			//Compares each element
+			for i, slice := range d.expected {
+				for j, element := range slice {
+					if element != result[i][j] {
+						t.Errorf("Expeced %d, got %d", element, result[i][j])
+					}
+				}
 			}
 		})
 	}

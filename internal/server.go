@@ -26,14 +26,7 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 
 	matrix := helper.FibonacciMatrix(rows, columns)
 
-	// res, err3 := helper.ConvertMatrixToJason(matrix)
-	// if err3 != nil {
-	// 	http.Error(w, err3.Error(), http.StatusInternalServerError)
-	// 	return
-	// }
-
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
-	// w.Write(res)
-	json.NewEncoder(w).Encode(matrix) //Would this replace lines 29-33 and 37?
+	json.NewEncoder(w).Encode(matrix)
 }
