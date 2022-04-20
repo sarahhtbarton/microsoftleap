@@ -10,14 +10,13 @@ RUN mkdir /app
 WORKDIR /app
 
 # What source code do you what to copy, and where to put it?
-# COPY takes two arguments (It's a little hard to tell, but . and /src/app are separated by a space). The first argument (the .) says where to copy the app's source code from. In this case . is a relative path that points to the directory the Dockerfile is currently in.
 COPY go.mod ./
 COPY go.sum ./
 RUN go mod download
 
 COPY . ./
 
-RUN go build -o /sbapp ./cmd/executable1/
+RUN go build -o /sbapp ./cmd/server/
 
 EXPOSE 8080
 
