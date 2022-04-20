@@ -17,8 +17,8 @@ RUN go mod download
 
 COPY . ./
 
-# RUN go build -o /docker-gs-ping
+RUN go build -o /sbapp ./cmd/executable1/
 
-# EXPOSE 8080
+EXPOSE 8080
 
-# CMD [ "/docker-gs-ping" ]
+CMD [ "/sbapp" ]
