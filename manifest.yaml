@@ -61,6 +61,7 @@ spec:
 
 # To run:
 # `kubectl apply -f manifest.yaml`
+# http://20.72.217.18/rows/3/columns/4
 
 # Troubleshoot/Confirm everything is running with:
 # `kubectl get pods`
