@@ -36,7 +36,7 @@ spec:
   - port: 8080
     targetPort: 8080
   selector:
-    app: matrixdeployment
+    app: matrixdeploymentpod
 status:
   loadBalancer: {}
 ---
@@ -52,10 +52,10 @@ spec:
     - http:
         paths:
         - pathType: Prefix
-          path: "/?(.*)"
+          path: "/"
           backend:
             service:
-              name: matrixdeployment
+              name: matrixservice
               port: 
                 number: 8080
 
@@ -63,7 +63,7 @@ spec:
 # `kubectl apply -f manifest.yaml`
 
 # Troubleshoot/Confirm everything is running with:
-# `kubectl get pod`
+# `kubectl get pods`
 # `kubectl describe pod`
 # `kubectl logs <podname>`
 # `kubectl get deployment`
@@ -71,3 +71,4 @@ spec:
 # `kubectl get service`
 # `kubectl describe service`
 # `kubectl get ingress` - gives you IP address
+# `kubectl describe ingress`
