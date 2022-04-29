@@ -25,9 +25,6 @@ spec:
           - containerPort: 8080
 status: {}
 ---
-# A service in Kubernetes is an abstract way to expose an application running on a set of pods as a network service
-# To get a Service template:
-# `kubectl create service clusterip matrixService --tcp=8080:8080 -o yaml --dry-run=client`
 apiVersion: v1
 kind: Service
 metadata:
@@ -42,7 +39,25 @@ spec:
     app: matrixdeployment
 status:
   loadBalancer: {}
-
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingressservice
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+    - http:
+        paths:
+        - pathType: Prefix
+          path: "/?(.*)"
+          backend:
+            service:
+              name: matrixdeployment
+              port: 
+                number: 8080
 
 # To run:
 # `kubectl apply -f manifest.yaml`
