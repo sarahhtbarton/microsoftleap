@@ -1,35 +1,58 @@
-# A manifest describes the resources you want to create (ex: deployments, services, pods, etc) and how you want it to run inside a cluster
-# Four required fields: apiVersion, kind, metadata, spec
-# `kubectl create deployment matrixDeployment --image=sbacr.azurecr.io/sbimage:latest -o yaml --dry-run` for a template
-
-# 
-# `kubectl api-versions`
 apiVersion: apps/v1
-
-# kind: What kind of object you want to create (ex: Pod, Deployment, etc)
-# `kubectl api-resources |more`
-# `kubectl explain Deployment --recursive  | more` for a whole template of all the possible fields
 kind: Deployment
-
-# metadata: Data that helps uniquely identify the object. Under this field you can have information like name, labels, annotation etc.
-# `kubectl explain Deployment.metadata | more`
 metadata:
-  name: matrixDeployment
-
-# spec: contains the state you desire for the object. The spec.containers sub-field contains information about the containers that will run inside this Pod. 
-# `kubectl explain Deployment.spec | more`
+  creationTimestamp: null
+  labels:
+    app: matrixdeployment
+  name: matrixdeployment
 spec:
-  # `kubectl explain Deployment.spec.template.spec.containers | more`
-  containers:
-  - name: matrixContainer
-    image: sbacr.azurecr.io/sbimage:latest
-    ports:
-      - containerPort: 8080
-
+  replicas: 1
+  selector:
+    matchLabels:
+      app: matrixdeploymentpod
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: matrixdeploymentpod
+    spec:
+      containers:
+      - name: matrixcontainer
+        image: sbacr.azurecr.io/sbimage:latest
+        resources: {}
+        ports:
+          - containerPort: 8080
+status: {}
+---
+# A service in Kubernetes is an abstract way to expose an application running on a set of pods as a network service
+# To get a Service template:
+# `kubectl create service clusterip matrixService --tcp=8080:8080 -o yaml --dry-run=client`
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  name: matrixservice
+spec:
+  type: ClusterIP
+  ports:
+  - port: 8080
+    targetPort: 8080
+  selector:
+    app: matrixdeployment
+status:
+  loadBalancer: {}
 
 
 # To run:
-# kubectl apply -f <configuration file>
+# `kubectl apply -f manifest.yaml`
 
-# Confirm pod is running with:
-# kubectl get pod
+# Troubleshoot/Confirm everything is running with:
+# `kubectl get pod`
+# `kubectl describe pod`
+# `kubectl logs <podname>`
+# `kubectl get deployment`
+# `kubectl get replicaset`
+# `kubectl get service`
+# `kubectl describe service`
+# `kubectl get ingress` - gives you IP address
