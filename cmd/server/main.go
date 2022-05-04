@@ -8,7 +8,7 @@ import (
 
 func main() {
 
-	srvr := server.NewServer(":8889")
+	srvr := server.NewServer(":8080")
 	
 	log.Fatal(srvr.ListenAndServe())
 }
