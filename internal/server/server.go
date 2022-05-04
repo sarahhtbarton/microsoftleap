@@ -3,7 +3,6 @@ package server
 import (
 	"encoding/json"
 	"errors"
-	"fmt"
 	"net/http"
 	"strconv"
 
@@ -31,6 +30,10 @@ func NewHTTPHandler() (http.Handler) {
 }
 
 func parseMatrixDimensions(vars map[string][]string) (int, int, error) {
+
+	if len(vars["rows"]) == 0 || len(vars["columns"]) == 0 {
+		return 0, 0, errors.New("Please enter both row and column parameters and values")
+	}
 
 	numRows := vars["rows"][0]
 	numColumns := vars["columns"][0]
