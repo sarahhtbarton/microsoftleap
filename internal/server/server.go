@@ -31,21 +31,20 @@ func handler(w http.ResponseWriter, r *http.Request) {
 
 	vars := mux.Vars(r)
 
-	rows, columns, err1 := helper.ConvertMaptoInts(vars)
-	if err1 != nil {
-		http.Error(w, err1.Error(), http.StatusNotAcceptable)
+	rows, columns, err := helper.ConvertMaptoInts(vars)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
 	
-	err2 := helper.ClientErrorHandling(rows, columns)
-	if err2 != nil {
-		http.Error(w, err2.Error(), http.StatusRequestedRangeNotSatisfiable)
+	err = helper.ClientErrorHandling(rows, columns)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
 
 	matrix := helper.FibonacciMatrix(rows, columns)
 
 	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(http.StatusOK)
 	json.NewEncoder(w).Encode(matrix)
 }
