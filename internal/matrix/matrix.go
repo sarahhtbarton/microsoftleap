@@ -39,7 +39,7 @@ func ClientErrorHandling (rows int, columns int) error {
 	return nil
 }
 
-func FibonacciMatrix (m int, n int) [][]int64 {
+func GenerateFibMatrix (m int, n int) [][]int64 {
 	//m = number of lists (height/rows)
 	//n = number of elements in the list (width/columns)
 
