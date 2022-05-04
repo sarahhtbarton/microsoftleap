@@ -29,7 +29,7 @@ func NewHTTPHandler() (http.Handler) {
 	return r
 }
 
-func parseMatrixDimensions(vars map[string][]string) (int, int, error) {
+func ParseMatrixDimensions(vars map[string][]string) (int, int, error) {
 
 	if len(vars["rows"]) == 0 || len(vars["columns"]) == 0 {
 		return 0, 0, errors.New("Please enter both row and column parameters and values")
@@ -55,7 +55,7 @@ func handler(w http.ResponseWriter, r *http.Request) {
 
 	vars := r.URL.Query()
 
-	rows, columns, err := parseMatrixDimensions(vars)
+	rows, columns, err := ParseMatrixDimensions(vars)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
