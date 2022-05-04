@@ -2,17 +2,13 @@ package main
 
 import (
 	"log"
-	"net/http"
 
-	"github.com/gorilla/mux"
-	"github.com/sarahhtbarton/microsoftleap/internal"
+	"github.com/sarahhtbarton/microsoftleap/internal/server"
 )
 
 func main() {
 
-	r := mux.NewRouter()
-
-	r.HandleFunc("/rows/{rows}/columns/{columns}", internal.Handler)
+	srvr := server.NewServer(":8889")
 	
-	log.Fatal(http.ListenAndServe(":8080", r))
+	log.Fatal(srvr.ListenAndServe())
 }

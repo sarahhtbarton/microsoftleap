@@ -1,16 +1,42 @@
-package internal
+package server
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
 
 	"github.com/gorilla/mux"
 	"github.com/sarahhtbarton/microsoftleap/internal/helper"
 )
 
-func Handler(w http.ResponseWriter, r *http.Request) {
+func NewServer(addr string) (*http.Server) {
+	
+	r := NewHTTPHandler()
+
+	fmt.Println("testing NewServer")
+
+	return &http.Server{
+		Addr:    addr,
+		Handler: r,
+	}
+}
+
+func NewHTTPHandler() (http.Handler) {
+
+	r := mux.NewRouter()
+
+	r.HandleFunc("/rows/{rows}/columns/{columns}", handler).Methods("GET")
+
+	fmt.Println("Testing NewHTTPHandler")
+
+	return r
+}
+
+func handler(w http.ResponseWriter, r *http.Request) {
 
 	vars := mux.Vars(r)
+
+	fmt.Println("Testing handler")
 
 	rows, columns, err1 := helper.ConvertMaptoInts(vars)
 	if err1 != nil {
