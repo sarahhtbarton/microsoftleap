@@ -3,6 +3,7 @@ package server
 import (
 	"encoding/json"
 	"errors"
+	"fmt"
 	"net/http"
 	"strconv"
 
@@ -24,15 +25,15 @@ func NewHTTPHandler() (http.Handler) {
 
 	r := mux.NewRouter()
 
-	r.HandleFunc("/rows/{rows}/columns/{columns}", handler).Methods("GET")
+	r.HandleFunc("/", handler).Methods("GET")
 
 	return r
 }
 
-func parseMatrixDimensions(vars map[string]string) (int, int, error) {
+func parseMatrixDimensions(vars map[string][]string) (int, int, error) {
 
-	numRows := vars["rows"]
-	numColumns := vars["columns"]
+	numRows := vars["rows"][0]
+	numColumns := vars["columns"][0]
 
 	rows, err := strconv.Atoi(numRows)
 	if err != nil {
@@ -49,7 +50,7 @@ func parseMatrixDimensions(vars map[string]string) (int, int, error) {
 
 func handler(w http.ResponseWriter, r *http.Request) {
 
-	vars := mux.Vars(r)
+	vars := r.URL.Query()
 
 	rows, columns, err := parseMatrixDimensions(vars)
 	if err != nil {
