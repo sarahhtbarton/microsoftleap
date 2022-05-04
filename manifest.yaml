@@ -1,7 +1,6 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  creationTimestamp: null
   labels:
     app: matrixdeployment
   name: matrixdeployment
@@ -13,7 +12,6 @@ spec:
   strategy: {}
   template:
     metadata:
-      creationTimestamp: null
       labels:
         app: matrixdeploymentpod
     spec:
@@ -28,7 +26,6 @@ status: {}
 apiVersion: v1
 kind: Service
 metadata:
-  creationTimestamp: null
   name: matrixservice
 spec:
   type: ClusterIP
@@ -58,18 +55,3 @@ spec:
               name: matrixservice
               port: 
                 number: 8080
-
-# To run:
-# `kubectl apply -f manifest.yaml`
-# http://20.72.217.18/rows/3/columns/4
-
-# Troubleshoot/Confirm everything is running with:
-# `kubectl get pods`
-# `kubectl describe pod`
-# `kubectl logs <podname>`
-# `kubectl get deployment`
-# `kubectl get replicaset`
-# `kubectl get service`
-# `kubectl describe service`
-# `kubectl get ingress` - gives you IP address
-# `kubectl describe ingress`
