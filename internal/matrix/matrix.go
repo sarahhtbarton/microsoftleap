@@ -32,7 +32,7 @@ func GenerateFibMatrix (rows int, columns int) ([][]int64, error) {
 		return nil, errors.New("You must enter a number greater than 0 and less than 93")
 	}
 	
-	if rows*columns > 92 { //whats the zero value for a slice of slices?
+	if rows*columns > 92 {
 		return nil, errors.New("Can only support a matrix with maximum of 92 numbers")
 	}
 
