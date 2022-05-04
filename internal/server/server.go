@@ -2,7 +2,9 @@ package server
 
 import (
 	"encoding/json"
+	"errors"
 	"net/http"
+	"strconv"
 
 	"github.com/gorilla/mux"
 	"github.com/sarahhtbarton/microsoftleap/internal/helper"
@@ -27,11 +29,29 @@ func NewHTTPHandler() (http.Handler) {
 	return r
 }
 
+func parseMatrixDimensions(vars map[string]string) (int, int, error) {
+
+	numRows := vars["rows"]
+	numColumns := vars["columns"]
+
+	rows, err := strconv.Atoi(numRows)
+	if err != nil {
+		return 0, 0, errors.New("Please enter an *integer* for your desired number of rows")
+	}
+	
+	columns, err := strconv.Atoi(numColumns)
+	if err != nil {
+		return 0, 0, errors.New("Please enter an *integer* for your desired number of columns")
+	}
+
+	return rows, columns, nil
+}
+
 func handler(w http.ResponseWriter, r *http.Request) {
 
 	vars := mux.Vars(r)
 
-	rows, columns, err := helper.ConvertMaptoInts(vars)
+	rows, columns, err := parseMatrixDimensions(vars)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
