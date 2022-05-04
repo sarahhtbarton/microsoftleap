@@ -1,4 +1,4 @@
-package helper
+package matrix
 
 import (
 	"errors"
