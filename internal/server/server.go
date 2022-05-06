@@ -32,18 +32,18 @@ func NewHTTPHandler() (http.Handler) {
 func ParseMatrixDimensions(vars map[string][]string) (int, int, error) {
 
 	if len(vars["rows"]) == 0 || len(vars["columns"]) == 0 {
-		return 0, 0, errors.New("Please enter both row and column parameters and values")
+		return 0, 0, errors.New("Please enter both row and column parameters")
 	}
 
-	numRows := vars["rows"][0]
-	numColumns := vars["columns"][0]
+	rowsStr := vars["rows"][0]
+	columnsStr := vars["columns"][0]
 
-	rows, err := strconv.Atoi(numRows)
+	rows, err := strconv.Atoi(rowsStr)
 	if err != nil {
 		return 0, 0, errors.New("Please enter an *integer* for your desired number of rows")
 	}
 	
-	columns, err := strconv.Atoi(numColumns)
+	columns, err := strconv.Atoi(columnsStr)
 	if err != nil {
 		return 0, 0, errors.New("Please enter an *integer* for your desired number of columns")
 	}
