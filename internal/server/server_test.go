@@ -18,10 +18,10 @@ func TestParseMatrixDimensions(t *testing.T) {
 	}{
 		{
 			name:    "Empty Map",
-			vars:    map[string][]string{"rows": {""}, "columns": {""}},
+			vars:    map[string][]string{},
 			rows:    0,
 			columns: 0,
-			err:     errors.New("Please enter an *integer* for your desired number of rows"),
+			err:     errors.New("Please enter both row and column parameters"),
 		},
 		{
 			name:    "Nil Map",
@@ -71,11 +71,11 @@ func TestParseMatrixDimensions(t *testing.T) {
 		t.Run(d.name, func(t *testing.T) {
 			rows, columns, err := ParseMatrixDimensions(d.vars)
 
-			require.EqualValuesf(t, d.rows, rows, "Expected %d, got %d", d.rows, rows)
+			require.Equal(t, d.rows, rows, "Mismatched rows")
 
-			require.EqualValuesf(t, d.columns, columns, "Expected %d, got %d", d.columns, columns)
+			require.Equal(t, d.columns, columns, "Mismatched columns")
 
-			require.EqualValuesf(t, d.err, err, "Expected %d, got %d", d.err, err)
+			require.Equal(t, d.err, err, "Mismatched error messages")
 		})
 	}
 }
