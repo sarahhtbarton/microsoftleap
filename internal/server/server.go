@@ -7,7 +7,7 @@ import (
 	"strconv"
 
 	"github.com/gorilla/mux"
-	"github.com/sarahhtbarton/microsoftleap/internal/helper"
+	"github.com/sarahhtbarton/microsoftleap/internal/matrix"
 )
 
 func NewServer(addr string) (*http.Server) {
@@ -61,13 +61,11 @@ func handler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	
-	err = helper.ClientErrorHandling(rows, columns)
+	matrix, err := matrix.GenerateFibMatrix(rows, columns)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
-
-	matrix := helper.FibonacciMatrix(rows, columns)
 
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(matrix)
