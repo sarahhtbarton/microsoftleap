@@ -2,29 +2,10 @@ package matrix
 
 import (
 	"errors"
-	"strconv"
 )
 
-func ConvertMaptoInts (vars map[string]string) (int, int, error) {
+func GenerateFibMatrix(rows int, columns int) ([][]int64, error) {
 
-	numRows := vars["rows"]
-	numColumns := vars["columns"]
-
-	rows, err := strconv.Atoi(numRows)
-	if err != nil {
-		return 0, 0, errors.New("Please enter an *integer* for your desired number of rows")
-	}
-	
-	columns, err := strconv.Atoi(numColumns)
-	if err != nil {
-		return 0, 0, errors.New("Please enter an *integer* for your desired number of columns")
-	}
-
-	return rows, columns, nil
-}
-
-func GenerateFibMatrix (rows int, columns int) ([][]int64, error) {
-	
 	//the max value for a int64 is 9,223,372,036,854,770,000 
 	//the largest fibonacci number int64 can handle is the 92nd number
 	//this function puts in constraints so that the server never encounters a Fibonacci number that's too large to handle
