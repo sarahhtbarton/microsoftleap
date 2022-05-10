@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: matrixdeployment
+  name: matrixdeployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: matrixdeploymentpod
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: matrixdeploymentpod
+    spec:
+      containers:
+      - name: matrixcontainer
+        image: sbacr.azurecr.io/sbimage:latest
+        resources: {}
+        ports:
+          - containerPort: 8080
+status: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: matrixservice
+spec:
+  type: ClusterIP
+  ports:
+  - port: 8080
+    targetPort: 8080
+  selector:
+    app: matrixdeploymentpod
+status:
+  loadBalancer: {}
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingressservice
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+    - http:
+        paths:
+        - pathType: Prefix
+          path: "/"
+          backend:
+            service:
+              name: matrixservice
+              port: 
+                number: 8080
