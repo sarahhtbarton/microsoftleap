@@ -2,26 +2,7 @@ package helper
 
 import (
 	"errors"
-	"strconv"
 )
-
-func ConvertMaptoInts (vars map[string]string) (int, int, error) {
-
-	numRows := vars["rows"]
-	numColumns := vars["columns"]
-
-	rows, err := strconv.Atoi(numRows)
-	if err != nil {
-		return 0, 0, errors.New("Please enter an *integer* for your desired number of rows")
-	}
-	
-	columns, err := strconv.Atoi(numColumns)
-	if err != nil {
-		return 0, 0, errors.New("Please enter an *integer* for your desired number of columns")
-	}
-
-	return rows, columns, nil
-}
 
 func ClientErrorHandling (rows int, columns int) error {
 
