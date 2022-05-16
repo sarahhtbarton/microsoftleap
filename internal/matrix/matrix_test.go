@@ -45,7 +45,7 @@ func TestGenerateFibMatrix(t *testing.T) {
 
 			require.Equal(t, d.expected, expected, "Mismatched result")
 
-			require.Equal(t, d.err, err, "Mismatched error messages")
+			require.IsType(t, d.err, err, "Mismatched errors")
 		})
 	}
 }
