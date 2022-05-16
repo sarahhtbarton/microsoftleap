@@ -3,6 +3,7 @@ package server
 import (
 	"encoding/json"
 	"errors"
+	"fmt"
 	"net/http"
 	"strconv"
 
@@ -24,7 +25,9 @@ func NewHTTPHandler() (http.Handler) {
 
 	r := mux.NewRouter()
 
-	r.HandleFunc("/", handler).Methods("GET")
+	r.HandleFunc("/", handlerIndex).Methods("GET")
+
+	r.HandleFunc("/matrix", handlerMatrix).Methods("GET")
 
 	return r
 }
@@ -51,7 +54,11 @@ func ParseMatrixDimensions(vars map[string][]string) (int, int, error) {
 	return rows, columns, nil
 }
 
-func handler(w http.ResponseWriter, r *http.Request) {
+func handlerIndex(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprintf(w, "Welcome")
+}
+
+func handlerMatrix(w http.ResponseWriter, r *http.Request) {
 
 	vars := r.URL.Query()
 
