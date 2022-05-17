@@ -12,6 +12,7 @@ RUN go mod download
 
 COPY . ./
 
+ENV CGO_ENABLED=0
 RUN go build -o ./sbapp ./cmd/server/
 
 FROM scratch
