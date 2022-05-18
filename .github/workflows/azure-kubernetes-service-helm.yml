@@ -11,7 +11,7 @@ env:
   CONTAINER_NAME: matrixContainer
   RESOURCE_GROUP: sbResourceGroup
   CLUSTER_NAME: sbcluster
-  IMAGE_PULL_SECRET_NAME:
+  IMAGE_PULL_SECRET_NAME: sbsecret
   CHART_PATH: ./sbchart
   CHART_OVERRIDE_PATH:
 
