@@ -108,6 +108,7 @@ jobs:
       uses: azure/k8s-bake@v2.1
       with:
         renderEngine: 'helm'
+        silent: 'false' # set this to get more verbose helm command logs
         helmChart: ${{ env.CHART_PATH }}
         overrideFiles: ${{ env.CHART_OVERRIDE_PATH }}
         overrides: |     
