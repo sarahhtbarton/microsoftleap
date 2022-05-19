@@ -12,8 +12,8 @@ env:
   RESOURCE_GROUP: sbResourceGroup
   CLUSTER_NAME: sbcluster
   IMAGE_PULL_SECRET_NAME: sbsecret
-  CHART_PATH: './sbchart'
-  CHART_OVERRIDE_PATH: './sbchart/values.yaml'
+  CHART_PATH: ./sbchart
+  CHART_OVERRIDE_PATH: ./sbchart/values.yaml
 
 jobs:
   buildImage:
@@ -108,8 +108,8 @@ jobs:
       uses: azure/k8s-bake@v2.1
       with:
         renderEngine: 'helm'
-        helmChart: ${{ env.CHART_PATH }}
-        overrideFiles: ${{ env.CHART_OVERRIDE_PATH }}
+        helmChart: './sbchart'
+        overrideFiles: './sbchart/values.yaml'
         overrides: |     
           replicas:2
         helm-version: 'latest' 
