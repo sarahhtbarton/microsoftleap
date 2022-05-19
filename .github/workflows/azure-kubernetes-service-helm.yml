@@ -7,8 +7,8 @@ on:
   workflow_dispatch:
 
 env:
-  AZURE_CONTAINER_REGISTRY: sbAcr
-  CONTAINER_NAME: matrixContainer
+  AZURE_CONTAINER_REGISTRY: sbacr
+  CONTAINER_NAME: matrixcontainer
   RESOURCE_GROUP: sbResourceGroup
   CLUSTER_NAME: sbcluster
   IMAGE_PULL_SECRET_NAME: sbsecret
