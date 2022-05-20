@@ -85,8 +85,9 @@ jobs:
     # Tring to find sbchart
     steps:
     - name: Azure login
-      run: echo "the current working directory is $PWD"
-      run: echo "the current working directory is "$PWD""
+      run: |
+        echo "the current working directory is $PWD"
+        echo "the current working directory is "$PWD""
   
   deploy:
     permissions:
