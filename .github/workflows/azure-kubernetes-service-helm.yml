@@ -83,10 +83,10 @@ jobs:
   pwd:
     runs-on: ubuntu-latest
     # Tring to find sbchart
-    with:
-      repository: microsoftleap
     steps:
     - name: Display the path
+      with:
+        repository: microsoftleap
       run: |
         echo "pwd"
         pwd
