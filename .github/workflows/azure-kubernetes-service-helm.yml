@@ -95,7 +95,6 @@ jobs:
         cd ..
         echo "parent"
         ls -al
-      shell: bash
 
   deploy:
     permissions:
