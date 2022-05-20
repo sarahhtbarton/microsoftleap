@@ -79,27 +79,6 @@ jobs:
         container-registry-username: ${{ steps.get-acr-creds.outputs.username }}
         container-registry-password: ${{ steps.get-acr-creds.outputs.password }}
         secret-name: ${{ env.IMAGE_PULL_SECRET_NAME }} 
-  
-  pwd:
-    runs-on: ubuntu-latest
-    steps:
-    
-    # # Tring to find sbchart
-    # - name: repo
-    #   uses: actions/checkout@v2
-    #   with:
-    #     repository: sarahhtbarton/microsoftleap
-    
-    # pwd
-    - name: Display the path
-      run: |
-        echo "pwd"
-        pwd
-        echo "current"
-        ls -al
-        cd ..
-        echo "parent"
-        ls -al
 
   deploy:
     permissions:
