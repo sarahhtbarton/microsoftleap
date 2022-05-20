@@ -12,8 +12,7 @@ env:
   RESOURCE_GROUP: sbresourcegroup
   CLUSTER_NAME: sbcluster
   IMAGE_PULL_SECRET_NAME: sbsecret
-  CHART_PATH: './sbchart/'
-  CHART_OVERRIDE_PATH: ./sbchart/values.yaml
+  CHART_PATH: ./sbchart
 
 jobs:
   buildImage:
@@ -112,13 +111,11 @@ jobs:
       with:
         renderEngine: 'helm'
         helmChart: ${{ env.CHART_PATH }}
-        # overrideFiles: ${{ env.CHART_OVERRIDE_PATH }}
         overrides: |     
           replicas:2
-          image: ${{ env.AZURE_CONTAINER_REGISTRY }}.azurecr.io/${{ env.CONTAINER_NAME }}
-            pullPolicy: IfNotPresent
-            tag: ${{ github.sha }}
-
+          # image: ${{ env.AZURE_CONTAINER_REGISTRY }}.azurecr.io/${{ env.CONTAINER_NAME }}
+          #   pullPolicy: IfNotPresent
+          #   tag: ${{ github.sha }}
         helm-version: 'latest' 
       id: bake
 
