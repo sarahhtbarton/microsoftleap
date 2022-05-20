@@ -12,7 +12,7 @@ env:
   RESOURCE_GROUP: sbResourceGroup
   CLUSTER_NAME: sbcluster
   IMAGE_PULL_SECRET_NAME: sbsecret
-  CHART_PATH: ./sbchart
+  CHART_PATH: ./sbchart/
   CHART_OVERRIDE_PATH: ./sbchart/values.yaml
 
 jobs:
@@ -79,14 +79,6 @@ jobs:
         container-registry-username: ${{ steps.get-acr-creds.outputs.username }}
         container-registry-password: ${{ steps.get-acr-creds.outputs.password }}
         secret-name: ${{ env.IMAGE_PULL_SECRET_NAME }} 
-  
-  pwd:
-    runs-on: ubuntu-latest
-    # Tring to find sbchart
-    steps:
-    - name: Display the path
-      run: echo $PATH
-      shell: bash
 
   deploy:
     permissions:
