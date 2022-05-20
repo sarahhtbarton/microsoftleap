@@ -116,6 +116,8 @@ jobs:
         overrides: |     
           replicas:2
           image:
+            repository: ${{ env.AZURE_CONTAINER_REGISTRY }}.azurecr.io/${{ env.CONTAINER_NAME }}
+            pullPolicy: IfNotPresent
             tag: ${{ github.sha }}
 
         helm-version: 'latest' 
