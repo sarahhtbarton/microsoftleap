@@ -86,9 +86,12 @@ jobs:
     steps:
     - name: Display the path
       run: |
-        ls
+        echo "current"
+        ls -al
         cd ..
-        ls
+        echo "parent"
+        ls -al
+      shell: bash
 
   deploy:
     permissions:
