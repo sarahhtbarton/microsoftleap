@@ -121,6 +121,8 @@ jobs:
     - name: Bake deployment
       uses: azure/k8s-bake@v2.1
       with:
+        with:
+        repository: microsoftleap
         renderEngine: 'helm'
         helmChart: ${{ env.CHART_PATH }}
         overrideFiles: ${{ env.CHART_OVERRIDE_PATH }}
