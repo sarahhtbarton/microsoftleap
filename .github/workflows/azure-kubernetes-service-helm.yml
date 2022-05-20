@@ -82,11 +82,16 @@ jobs:
   
   pwd:
     runs-on: ubuntu-latest
-    # Tring to find sbchart
     steps:
-    - name: Display the path
+    
+    # Tring to find sbchart
+    - name: repo
+      uses: actions/checkout@v2
       with:
         repository: microsoftleap
+    
+    # pwd
+    - name: Display the path
       run: |
         echo "pwd"
         pwd
