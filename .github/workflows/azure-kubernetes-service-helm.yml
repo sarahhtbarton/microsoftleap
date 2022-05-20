@@ -112,7 +112,7 @@ jobs:
         overrideFiles: ${{ env.CHART_OVERRIDE_PATH }}
         overrides: |     
           replicas:2
-        helm-version: 'latest' 
+        helm-version: 'v3.8.2' 
       id: bake
 
     # Deploys application based on manifest files from previous step
