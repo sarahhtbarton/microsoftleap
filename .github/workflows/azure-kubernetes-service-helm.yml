@@ -12,7 +12,7 @@ env:
   RESOURCE_GROUP: sbResourceGroup
   CLUSTER_NAME: sbcluster
   IMAGE_PULL_SECRET_NAME: sbsecret
-  CHART_PATH: ./sbchart
+  CHART_PATH: './sbchart'
   CHART_OVERRIDE_PATH: ./sbchart/values.yaml
 
 jobs:
@@ -68,6 +68,7 @@ jobs:
         echo "::add-mask::${ACR_USERNAME}"
         echo "::set-output name=username::${ACR_USERNAME}"
         echo "::add-mask::${ACR_PASSWORD}"
+        echo: "The current working directory: $PWD"
         echo "::set-output name=password::${ACR_PASSWORD}"
       id: get-acr-creds
 
