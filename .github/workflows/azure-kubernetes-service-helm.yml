@@ -85,6 +85,7 @@ jobs:
     # Tring to find sbchart
     steps:
     - name: Display the path
+      working-directory: source/microsoftleap
       run: |
         echo "current"
         ls -al
