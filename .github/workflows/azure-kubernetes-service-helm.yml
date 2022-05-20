@@ -85,7 +85,7 @@ jobs:
     # Tring to find sbchart
     steps:
     - name: Display the path
-      working-directory: source/microsoftleap
+      working-directory: ./sbchart
       run: |
         echo "pwd"
         pwd
