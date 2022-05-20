@@ -9,7 +9,7 @@ on:
 env:
   AZURE_CONTAINER_REGISTRY: sbacr
   CONTAINER_NAME: matrixcontainer
-  RESOURCE_GROUP: sbResourceGroup
+  RESOURCE_GROUP: sbresourcegroup
   CLUSTER_NAME: sbcluster
   IMAGE_PULL_SECRET_NAME: sbsecret
   CHART_PATH: './sbchart/'
