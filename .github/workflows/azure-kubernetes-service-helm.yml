@@ -12,7 +12,7 @@ env:
   RESOURCE_GROUP: sbResourceGroup
   CLUSTER_NAME: sbcluster
   IMAGE_PULL_SECRET_NAME: sbsecret
-  CHART_PATH: /home/runner/work/microsoftleap/sbchart
+  CHART_PATH: /home/runner/work/microsoftleap/microsoftleap/sbchart
   CHART_OVERRIDE_PATH: /home/runner/work/microsoftleap/sbchart/values.yaml
 
 jobs:
