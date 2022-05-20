@@ -118,6 +118,7 @@ jobs:
 
     # Runs Helm to create manifest files
     - name: Bake deployment
+      uses: actions/checkout@v2
       uses: azure/k8s-bake@v2.1
       with:
         renderEngine: 'helm'
