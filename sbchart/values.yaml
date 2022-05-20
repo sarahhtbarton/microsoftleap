@@ -5,10 +5,10 @@
 replicaCount: 1
 
 image:
-  repository: sbacr.azurecr.io/sbimage
+  repository: sbacr.azurecr.io/matrixcontainer
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "multistage"
+  tag: "latest"
 
 imagePullSecrets: []
 nameOverride: ""
