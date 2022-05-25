@@ -7,6 +7,7 @@ import (
 	"strconv"
 
 	"github.com/gorilla/mux"
+	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"github.com/sarahhtbarton/microsoftleap/internal/matrix"
 )
 
@@ -27,6 +28,10 @@ func NewHTTPHandler() (http.Handler) {
 	r.HandleFunc("/", handlerIndex).Methods("GET")
 	
 	r.HandleFunc("/matrix", handlerMatrix).Methods("GET")
+
+	// http.Handle("/metrics", promhttp.Handler())
+	// r.Handle("/metrics", promhttp.Handler())
+	r.Path("/metrics").Handler(promhttp.Handler())
 
 	return r
 }
