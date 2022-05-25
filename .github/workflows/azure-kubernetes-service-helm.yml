@@ -7,13 +7,12 @@ on:
   workflow_dispatch:
 
 env:
-  AZURE_CONTAINER_REGISTRY: sbAcr
-  CONTAINER_NAME: matrixContainer
-  RESOURCE_GROUP: sbResourceGroup
+  AZURE_CONTAINER_REGISTRY: sbacr
+  CONTAINER_NAME: matrixcontainer
+  RESOURCE_GROUP: sbresourcegroup
   CLUSTER_NAME: sbcluster
-  IMAGE_PULL_SECRET_NAME:
+  IMAGE_PULL_SECRET_NAME: sbsecret
   CHART_PATH: ./sbchart
-  CHART_OVERRIDE_PATH:
 
 jobs:
   buildImage:
@@ -88,6 +87,8 @@ jobs:
     runs-on: ubuntu-latest
     needs: [buildImage, createSecret]
     steps:
+    # Checks out the repository this file is in
+    - uses: actions/checkout@v3
     # Logs in with your Azure credentials
     - name: Azure login
       uses: azure/login@v1.4.3
@@ -109,9 +110,9 @@ jobs:
       with:
         renderEngine: 'helm'
         helmChart: ${{ env.CHART_PATH }}
-        overrideFiles: ${{ env.CHART_OVERRIDE_PATH }}
         overrides: |     
-          replicas:2
+          replicaCount:2
+          image.tag:${{ github.sha }}
         helm-version: 'latest' 
       id: bake
 
