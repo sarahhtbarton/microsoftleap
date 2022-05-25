@@ -1,8 +1,7 @@
 name: Build and deploy matrix webserver app to AKS with Helm
 
 on:
-  # push:
-  pull_request:
+  push:
     branches:
       - master
   workflow_dispatch:
