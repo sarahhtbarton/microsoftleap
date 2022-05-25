@@ -8,7 +8,7 @@ image:
   repository: sbacr.azurecr.io/matrixcontainer
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "latest"
+  tag: "29e638674b1f26943fee84da943a1ea71682f788"
 
 imagePullSecrets: []
 nameOverride: ""
@@ -23,7 +23,11 @@ serviceAccount:
   # If not set and create is true, a name is generated using the fullname template
   name: ""
 
-podAnnotations: {}
+podAnnotations:
+  prometheus.io/scrape: "true"
+  prometheus.io/scheme: "http"
+  prometheus.io/path: "/metrics"
+  prometheus.io/port: "8080"
 
 podSecurityContext: {}
   # fsGroup: 2000
