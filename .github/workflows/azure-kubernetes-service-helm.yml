@@ -112,7 +112,8 @@ jobs:
         renderEngine: 'helm'
         helmChart: ${{ env.CHART_PATH }}
         overrides: |     
-          replicas:2
+          replicaCount:2
+          image.tag:${{ github.sha }}
         helm-version: 'latest' 
       id: bake
 
