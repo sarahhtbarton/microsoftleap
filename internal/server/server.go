@@ -9,10 +9,11 @@ import (
 	"github.com/gorilla/mux"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"github.com/sarahhtbarton/microsoftleap/internal/matrix"
+	"github.com/sarahhtbarton/microsoftleap/prometheus"
 )
 
-func NewServer(addr string) (*http.Server) {
-	
+func NewServer(addr string) *http.Server {
+
 	r := NewHTTPHandler()
 
 	return &http.Server{
@@ -21,15 +22,16 @@ func NewServer(addr string) (*http.Server) {
 	}
 }
 
-func NewHTTPHandler() (http.Handler) {
+func NewHTTPHandler() http.Handler {
 
 	r := mux.NewRouter()
 
-	r.HandleFunc("/", handlerIndex).Methods("GET")
-	
-	r.HandleFunc("/matrix", handlerMatrix).Methods("GET")
-
+	r.Use(prometheus.Prometheus)
 	r.Path("/metrics").Handler(promhttp.Handler())
+
+	r.HandleFunc("/", handlerIndex).Methods("GET")
+
+	r.HandleFunc("/matrix", handlerMatrix).Methods("GET")
 
 	return r
 }
@@ -47,7 +49,7 @@ func ParseMatrixDimensions(vars map[string][]string) (int, int, error) {
 	if err != nil {
 		return 0, 0, errors.New("Please enter an *integer* for your desired number of rows")
 	}
-	
+
 	columns, err := strconv.Atoi(columnsStr)
 	if err != nil {
 		return 0, 0, errors.New("Please enter an *integer* for your desired number of columns")
@@ -69,7 +71,7 @@ func handlerMatrix(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
-	
+
 	matrix, err := matrix.GenerateFibMatrix(rows, columns)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
