@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
 
 env:
-  AZURE_CONTAINER_REGISTRY: sbacr
+  AZURE_CONTAINER_REGISTRY: sbacrdos
   CONTAINER_NAME: matrixcontainer
   RESOURCE_GROUP: sbresourcegroup
   CLUSTER_NAME: sbcluster
