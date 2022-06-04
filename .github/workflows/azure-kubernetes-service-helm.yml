@@ -1,13 +1,14 @@
 name: Build and deploy matrix webserver app to AKS with Helm
 
 on:
-  push:
+  # push:
+  pull_request:
     branches:
       - master
   workflow_dispatch:
 
 env:
-  AZURE_CONTAINER_REGISTRY: sbacr
+  AZURE_CONTAINER_REGISTRY: sbacrdos
   CONTAINER_NAME: matrixcontainer
   RESOURCE_GROUP: sbresourcegroup
   CLUSTER_NAME: sbcluster
