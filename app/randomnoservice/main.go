@@ -2,7 +2,6 @@ package main
 
 import (
 	"encoding/json"
-	"fmt"
 	"math/rand"
 	"net/http"
 	"os"
@@ -17,6 +16,7 @@ func main() {
 
 	r.HandleFunc("/randomnumber", handlerRandom).Methods("GET")
 
+	// set env variable and run with: `PORT=":8081" go run main.go``
 	value, ok := os.LookupEnv("PORT")
 	if ok {
 		http.ListenAndServe(value, r)
@@ -26,8 +26,6 @@ func main() {
 }
 
 func handlerRandom(w http.ResponseWriter, r *http.Request) {
-
-	fmt.Println(os.Getenv("MYVAR"))
 
 	rand.Seed(time.Now().UnixNano())
 	min := 1
