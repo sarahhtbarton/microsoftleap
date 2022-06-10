@@ -3,7 +3,7 @@ package main
 import (
 	"log"
 
-	"github.com/sarahhtbarton/microsoftleap/internal/server"
+	"github.com/sarahhtbarton/microsoftleap/matrixservice/internal/server"
 )
 
 func main() {

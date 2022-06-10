@@ -7,7 +7,7 @@ import (
 	"strconv"
 
 	"github.com/gorilla/mux"
-	"github.com/sarahhtbarton/microsoftleap/internal/matrix"
+	"github.com/sarahhtbarton/microsoftleap/matrixservice/internal/matrix"
 )
 
 func NewServer(addr string) (*http.Server) {

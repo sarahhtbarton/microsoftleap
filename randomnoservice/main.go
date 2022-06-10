@@ -27,6 +27,9 @@ func main() {
 
 func handlerRandom(w http.ResponseWriter, r *http.Request) {
 
+	// TODO: return a map with {"row:" x, "column": y}
+	// TODO: throw it in for loop to make sure x*y is not greater than 92
+	
 	rand.Seed(time.Now().UnixNano())
 	min := 1
 	max := 92
