@@ -1,0 +1,21 @@
+
+global:
+  scrape_interval: 15s
+
+# remote-write is used to push data to Grafana Cloud
+remote_write:
+- url: https://prometheus-prod-10-prod-us-central-0.grafana.net/api/prom/push
+  basic_auth:
+    username: 449776
+    password: eyJrIjoiYzM1ZWI5NzQwYmUxMWZkMWI1OGMzMWVlMTYyZThhNzA4ZmUzYjZjNyIsIm4iOiJtYXRyaXgiLCJpZCI6NjU2MDQwfQ==
+
+# Endpoints to scrape -- prometheus itself, and the matrix app
+scrape_configs:
+  - job_name: "prometheus"
+    static_configs:
+      - targets: ["localhost:9090"]
+
+  - job_name: "matrix"
+    metrics_path: /metrics
+    static_configs:
+      - targets: ["localhost:8080"]
