@@ -1,4 +1,4 @@
-module github.com/sarahhtbarton/microsoftleap
+module github.com/sarahhtbarton/microsoftleap/matrixservice
 
 go 1.18
 
